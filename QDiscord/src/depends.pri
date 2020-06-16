@@ -10,6 +10,7 @@ SOURCES += $$PWD/qdiscord.d/qdiscord.cpp \
     $$PWD/qdiscord.d/qdiscordchannel.cpp \
     $$PWD/qdiscord.d/qdiscordmember.cpp \
     $$PWD/qdiscord.d/qdiscordmessage.cpp \
+    $$PWD/qdiscord.d/qdiscordembed.cpp \
     $$PWD/qdiscord.d/qdiscordgame.cpp
 
 TOPHEADERS += $$PWD/QDiscord
@@ -25,6 +26,7 @@ DIRHEADERS += $$PWD/qdiscord.d/qdiscord.hpp \
     $$PWD/qdiscord.d/qdiscordmember.hpp \
     $$PWD/qdiscord.d/qdiscordmessage.hpp \
     $$PWD/qdiscord.d/qdiscordgame.hpp \
+    $$PWD/qdiscord.d/qdiscordembed.hpp \
     $$PWD/qdiscord.d/qdiscordtokentype.hpp
 
 HEADERS += $$TOPHEADERS \

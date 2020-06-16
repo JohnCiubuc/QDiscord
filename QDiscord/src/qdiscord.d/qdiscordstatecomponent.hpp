@@ -146,6 +146,7 @@ signals:
 	 * \param message An object containing information about the sent message.
 	 */
 	void messageCreated(QDiscordMessage message);
+        void messageCreatedBare(QString channel, QString message, QString authorID);
 	/*!
 	 * \brief Emitted when a message has been created.
 	 * \param message An object containing information about the deleted

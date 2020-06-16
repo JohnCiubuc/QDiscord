@@ -30,87 +30,121 @@
 class QDiscordGuild : public QEnableSharedFromThis<QDiscordGuild>
 {
 public:
-	/*!
-	 * \brief Creates an instance from the provided parameters.
-	 * \param object A JSON object of a Discord guild.
-	 */
-	QDiscordGuild(const QJsonObject& object);
-	QDiscordGuild(const QDiscordGuild& other);
-	QDiscordGuild();
-	~QDiscordGuild();
-	///\brief Returns the guild's ID.
-	QString id() const {return _id;}
-	///\brief Returns the guild's name.
-	QString name() const {return _name;}
-	/*!
-	 * \brief Returns whether the guild is unavailable.
-	 *
-	 * If this is true, a majority of guild information will not be available.
-	 */
-	bool unavailable() const {return _unavailable;}
-	///\brief Returns the guild's verification level.
-	int verificationLevel() const {return _verificationLevel;}
-	/*!
-	 * \brief Returns the guild's AFK time needed to move a user to the AFK
-	 * channel.
-	 */
-	int afkTimeout() const {return _afkTimeout;}
-	///\brief Returns the guild's member count.
-	int memberCount() const {return _memberCount;}
-	///\brief Returns the date the current user joined this guild.
-	QDateTime joinedAt() const {return _joinedAt;}
-	///\brief Returns a map of pointers to the guild's channels and their IDs.
-	QMap<QString, QSharedPointer<QDiscordChannel>>
-	channels() const {return _channels;}
-	///\brief Returns a map of pointers to the guild's members and their IDs.
-	QMap<QString, QSharedPointer<QDiscordMember>>
-	members() const {return _members;}
-	/*!
-	 * \brief Returns a pointer to a guild channel that has the provided ID.
-	 *
-	 * Returns `nullptr` if the channel was not found.
-	 */
-	QSharedPointer<QDiscordChannel>
-	channel(const QString& id) const {
-		return _channels.value(id, QSharedPointer<QDiscordChannel>());
-	}
-	/*!
-	 * \brief Returns a pointer to a guild member that has the provided ID.
-	 *
-	 * Returns `nullptr` if the member was not found.
-	 */
-	QSharedPointer<QDiscordMember>
-	member(const QString& id) const {
-		return _members.value(id, QSharedPointer<QDiscordMember>());
-	}
-	///\brief Adds the provided channel to the guild.
-	void addChannel(QSharedPointer<QDiscordChannel> channel);
-	/*!
-	 * \brief Removes the provided channel from the guild.
-	 *
-	 * Returns `true` if the channel was successfully removed. `false` if
-	 * `nullptr` was passed or the channel was not found.
-	 */
-	bool removeChannel(QSharedPointer<QDiscordChannel> channel);
-	///\brief Adds the provided member to the guild.
-	void addMember(QSharedPointer<QDiscordMember> member);
-	/*!
-	 * \brief Removes the provided member from the guild.
-	 *
-	 * Returns `true` if the member was successfully removed. `false` if
-	 * `nullptr` was passed or the member was not found.
-	 */
-	bool removeMember(QSharedPointer<QDiscordMember> member);
+  /*!
+   * \brief Creates an instance from the provided parameters.
+   * \param object A JSON object of a Discord guild.
+   */
+  QDiscordGuild(const QJsonObject & object);
+  QDiscordGuild(const QDiscordGuild & other);
+  QDiscordGuild();
+  ~QDiscordGuild();
+  ///\brief Returns the guild's ID.
+  QString id() const
+  {
+    return _id;
+  }
+  ///\brief Returns the guild's name.
+  QString name() const
+  {
+    return _name;
+  }
+  /*!
+   * \brief Returns whether the guild is unavailable.
+   *
+   * If this is true, a majority of guild information will not be available.
+   */
+  bool unavailable() const
+  {
+    return _unavailable;
+  }
+  ///\brief Returns the guild's verification level.
+  int verificationLevel() const
+  {
+    return _verificationLevel;
+  }
+  /*!
+   * \brief Returns the guild's AFK time needed to move a user to the AFK
+   * channel.
+   */
+  int afkTimeout() const
+  {
+    return _afkTimeout;
+  }
+  ///\brief Returns the guild's member count.
+  int memberCount() const
+  {
+    return _memberCount;
+  }
+  ///\brief Returns the date the current user joined this guild.
+  QDateTime joinedAt() const
+  {
+    return _joinedAt;
+  }
+  ///\brief Returns a map of pointers to the guild's channels and their IDs.
+  QMap<QString, QSharedPointer<QDiscordChannel>>
+      channels() const
+  {
+    return _channels;
+  }
+  ///\brief Returns a map of pointers to the guild's members and their IDs.
+  QMap<QString, QSharedPointer<QDiscordMember>>
+      members() const
+  {
+    return _members;
+  }
+  /*!
+   * \brief Returns a pointer to a guild channel that has the provided ID.
+   *
+   * Returns `nullptr` if the channel was not found.
+   */
+  QSharedPointer<QDiscordChannel>
+  channel(const QString & id) const
+  {
+    return _channels.value(id, QSharedPointer<QDiscordChannel>());
+  }
+  /*!
+   * \brief Returns a pointer to a guild member that has the provided ID.
+   *
+   * Returns `nullptr` if the member was not found.
+   */
+  QSharedPointer<QDiscordMember>
+  member(const QString & id) const
+  {
+    return _members.value(id, QSharedPointer<QDiscordMember>());
+  }
+  ///\brief Adds the provided channel to the guild.
+  void addChannel(QSharedPointer<QDiscordChannel> channel);
+  /*!
+   * \brief Removes the provided channel from the guild.
+   *
+   * Returns `true` if the channel was successfully removed. `false` if
+   * `nullptr` was passed or the channel was not found.
+   */
+  bool removeChannel(QSharedPointer<QDiscordChannel> channel);
+  ///\brief Adds the provided member to the guild.
+  void addMember(QSharedPointer<QDiscordMember> member);
+  /*!
+   * \brief Removes the provided member from the guild.
+   *
+   * Returns `true` if the member was successfully removed. `false` if
+   * `nullptr` was passed or the member was not found.
+   */
+  bool removeMember(QSharedPointer<QDiscordMember> member);
+  QJsonArray roles() const
+  {
+    return _roles;
+  }
 private:
-	QString _id;
-	QString _name;
-	bool _unavailable;
-	int _verificationLevel;
-	int _afkTimeout;
-	int _memberCount;
-	QDateTime _joinedAt;
-	QMap<QString, QSharedPointer<QDiscordMember>> _members;
-	QMap<QString, QSharedPointer<QDiscordChannel>> _channels;
+  QString _id;
+  QString _name;
+  bool _unavailable;
+  int _verificationLevel;
+  int _afkTimeout;
+  int _memberCount;
+  QDateTime _joinedAt;
+  QJsonArray _roles;
+  QMap<QString, QSharedPointer<QDiscordMember>> _members;
+  QMap<QString, QSharedPointer<QDiscordChannel>> _channels;
 };
 
 Q_DECLARE_METATYPE(QDiscordGuild)

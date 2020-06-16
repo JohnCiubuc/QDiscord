@@ -74,6 +74,7 @@ void QDiscordStateComponent::guildCreateReceived(const QJsonObject& object)
 			QSharedPointer<QDiscordGuild>(new QDiscordGuild(object));
 	_guilds.insert(guild->id(), guild);
 	emit guildCreated(guild);
+    qDebug() << guild->id();
 	if(!guild->unavailable())
 		emit guildAvailable(guild);
 }
@@ -203,13 +204,14 @@ void QDiscordStateComponent::guildRoleUpdateReceived(const QJsonObject& object)
 void QDiscordStateComponent::guildUpdateReceived(const QJsonObject& object)
 {
 	//TODO Implement
-	Q_UNUSED(object);
+    Q_UNUSED(object)
 }
 
 void QDiscordStateComponent::messageCreateReceived(const QJsonObject& object)
 {
 	QDiscordMessage message(object, channel(object["channel_id"].toString("")));
-	emit messageCreated(message);
+        emit messageCreated(message);
+    emit messageCreatedBare(message.channelId(), message.content(), message.author()->id());
 }
 
 void QDiscordStateComponent::messageDeleteReceived(const QJsonObject& object)

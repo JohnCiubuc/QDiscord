@@ -51,101 +51,120 @@
  */
 class QDiscord : public QObject
 {
-	Q_OBJECT
+  Q_OBJECT
 public:
-	explicit QDiscord(QObject* parent = 0);
-	~QDiscord();
-	/*!
-	 * \brief Automatically calls all component functions required to handle a
-	 * standard Discord login via username and password.
-	 *
-	 * This might cause issues if you are manually interfacing with the
-	 * components, in which case it is recommended to not call this and instead
-	 * log in manually.
-	 * \param email The Discord account to be used's e-mail.
-	 * \param password The password to the supplied e-mail.
-	 * \deprecated This method has been deprecated for bot usage by Discord.\n
-	 * See https://discordapp.com/developers/docs/topics/oauth2#bot-vs-user-accounts\n
-	 * and https://github.com/hammerandchisel/discord-api-docs/issues/69
-	 */
-	void login(const QString& email, const QString& password);
-	/*!
-	 * \brief Automatically calls all component functions required to handle a
-	 * standard Discord login via a token.
-	 *
-	 * This might cause issues if you are manually interfacing with the
-	 * components, in which case it is recommended to not call this and instead
-	 * log in manually.
-	 * \param token The token to use.
-	 * \param tokenType Specifies the type of the provided token.
-	 * \see QDiscordTokenType
-	 */
-	void login(const QString& token,
-			   QDiscordTokenType tokenType = QDiscordTokenType::Bot);
-	/*!
-	 * \brief Handles logging out of the Discord API and destroying any state
-	 * information in memory.
-	 *
-	 * The QDiscord::loggedOut signal will be emitted when everything has safely
-	 * logged out.
-	 */
-	void logout();
-	/*!
-	 * \brief Returns a pointer to the REST component.
-	 * \see QDiscordRestComponent
-	 */
-	QDiscordRestComponent* rest() {return &_rest;}
-	/*!
-	 * \brief Returns a pointer to the WebSocket component.
-	 * \see QDiscordWsComponent
-	 */
-	QDiscordWsComponent* ws() {return &_ws;}
-	/*!
-	 * \brief Returns a pointer to the state component.
-	 * \see QDiscordStateComponent
-	 */
-	QDiscordStateComponent* state() {return &_state;}
-	///\brief Returns whether %QDiscord is connected.
-	bool isConnected() {return _connected;}
-	///\brief Returns whether %QDiscord is currently connecting.
-	bool isConnecting() {return _connecting;}
+  explicit QDiscord(QObject * parent = 0);
+  ~QDiscord();
+  /*!
+   * \brief Automatically calls all component functions required to handle a
+   * standard Discord login via username and password.
+   *
+   * This might cause issues if you are manually interfacing with the
+   * components, in which case it is recommended to not call this and instead
+   * log in manually.
+   * \param email The Discord account to be used's e-mail.
+   * \param password The password to the supplied e-mail.
+   * \deprecated This method has been deprecated for bot usage by Discord.\n
+   * See https://discordapp.com/developers/docs/topics/oauth2#bot-vs-user-accounts\n
+   * and https://github.com/hammerandchisel/discord-api-docs/issues/69
+   */
+  void login(const QString & email, const QString & password);
+  /*!
+   * \brief Automatically calls all component functions required to handle a
+   * standard Discord login via a token.
+   *
+   * This might cause issues if you are manually interfacing with the
+   * components, in which case it is recommended to not call this and instead
+   * log in manually.
+   * \param token The token to use.
+   * \param tokenType Specifies the type of the provided token.
+   * \see QDiscordTokenType
+   */
+  void login(const QString & token,
+             QDiscordTokenType tokenType = QDiscordTokenType::Bot);
+  /*!
+   * \brief Handles logging out of the Discord API and destroying any state
+   * information in memory.
+   *
+   * The QDiscord::loggedOut signal will be emitted when everything has safely
+   * logged out.
+   */
+  void logout();
+  /*!
+   * \brief Returns a pointer to the REST component.
+   * \see QDiscordRestComponent
+   */
+  QDiscordRestComponent * rest()
+  {
+    return &_rest;
+  }
+  /*!
+   * \brief Returns a pointer to the WebSocket component.
+   * \see QDiscordWsComponent
+   */
+  QDiscordWsComponent * ws()
+  {
+    return &_ws;
+  }
+  /*!
+   * \brief Returns a pointer to the state component.
+   * \see QDiscordStateComponent
+   */
+  QDiscordStateComponent * state()
+  {
+    return &_state;
+  }
+  ///\brief Returns whether %QDiscord is connected.
+  bool isConnected()
+  {
+    return _connected;
+  }
+  ///\brief Returns whether %QDiscord is currently connecting.
+  bool isConnecting()
+  {
+    return _connecting;
+  }
+  void getGuildMemberAcquired(QByteArray barray);
+  void getGuildAcquired(QByteArray barray);
+  void getGuildMemberFailed(QNetworkReply::NetworkError er);
 signals:
-	/*!
-	 * \brief Emitted when logging in has failed.
-	 *
-	 * Connect to component signals in order to get more information about the
-	 * error that caused this.
-	 */
-	void loginFailed();
-	///\brief Emitted when logging in is completed and successful.
-	void loginSuccess();
-	///\brief Emitted when logging out has finished.
-	void loggedOut();
-	/*!
-	 * \brief Emitted when the WebSocket has disconnected.
-	 *
-	 * It should automatically reconnect, so error-handling code is not
-	 * required here.
-	 * \see QDiscordWsComponent
-	 */
-	void disconnected();
+  /*!
+   * \brief Emitted when logging in has failed.
+   *
+   * Connect to component signals in order to get more information about the
+   * error that caused this.
+   */
+  void loginFailed();
+  ///\brief Emitted when logging in is completed and successful.
+  void loginSuccess();
+  ///\brief Emitted when logging out has finished.
+  void loggedOut();
+
+  /*!
+   * \brief Emitted when the WebSocket has disconnected.
+   *
+   * It should automatically reconnect, so error-handling code is not
+   * required here.
+   * \see QDiscordWsComponent
+   */
+  void disconnected();
 private:
-	void tokenVerfified(const QString& token, QDiscordTokenType tokenType);
-	void endpointAcquired(const QString& endpoint);
-	void connectComponents();
-	void connectDiscordSignals();
-	void disconnectDiscordSignals();
-	void logoutFinished();
-	void loginSuccessRecevied();
-	void loginFailedReceived();
-	QString _token;
-	QDiscordTokenType _tokenType;
-	QDiscordRestComponent _rest;
-	QDiscordWsComponent _ws;
-	QDiscordStateComponent _state;
-	bool _signalsConnected;
-	bool _connecting;
-	bool _connected;
+  void tokenVerfified(const QString & token, QDiscordTokenType tokenType);
+  void endpointAcquired(const QString & endpoint);
+  void connectComponents();
+  void connectDiscordSignals();
+  void disconnectDiscordSignals();
+  void logoutFinished();
+  void loginSuccessRecevied();
+  void loginFailedReceived();
+  QString _token;
+  QDiscordTokenType _tokenType;
+  QDiscordRestComponent _rest;
+  QDiscordWsComponent _ws;
+  QDiscordStateComponent _state;
+  bool _signalsConnected;
+  bool _connecting;
+  bool _connected;
 };
 
 #endif // QDISCORD_HPP

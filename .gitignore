@@ -44,3 +44,6 @@ QDiscord/docs
 
 # Configuration file. Commit with git add --force.
 QDiscord/config.pri
+
+# Linux build
+build-QDiscord-Desktop-Release/

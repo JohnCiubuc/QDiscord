@@ -8,6 +8,7 @@ TEMPLATE = subdirs
 
 include(config.pri)
 
+
 SUBDIRS += src
 equals(QDISCORD_LIBRARY_BUILD_TESTS, "true") {
     SUBDIRS += tests

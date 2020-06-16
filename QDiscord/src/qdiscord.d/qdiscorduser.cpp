@@ -9,11 +9,11 @@
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.	 See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Lesser General Public License for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this program.	 If not, see <http://www.gnu.org/licenses/>.
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 #include "qdiscorduser.hpp"
@@ -21,69 +21,69 @@
 
 QDiscordUser::QDiscordUser(const QJsonObject& object)
 {
-	_id = object["id"].toString("");
-	_bot = object["bot"].toBool(false);
-	_discriminator = object["discriminator"].toString("");
-	_email = object["email"].toString("");
-	_username = object["username"].toString("");
-	_verified = object["verified"].toBool(false);
-	_avatar = object["avatar"].toString("");
+    _id = object["id"].toString("");
+    _bot = object["bot"].toBool(false);
+    _discriminator = object["discriminator"].toString("");
+    _email = object["email"].toString("");
+    _username = object["username"].toString("");
+    _verified = object["verified"].toBool(false);
+    _avatar = object["avatar"].toString("");
 
-#ifdef QDISCORD_LIBRARY_DEBUG
-	qDebug()<<"QDiscordUser("<<this<<") constructed";
-#endif
+//#ifdef QDISCORD_LIBRARY_DEBUG
+//  qDebug()<<"QDiscordUser("<<this<<") constructed";
+//#endif
 }
 
 QDiscordUser::QDiscordUser()
 {
-	_id = "";
-	_bot = false;
-	_discriminator = "";
-	_email = "";
-	_username = "";
-	_verified = false;
-	_avatar = "";
+    _id = "";
+    _bot = false;
+    _discriminator = "";
+    _email = "";
+    _username = "";
+    _verified = false;
+    _avatar = "";
 
-#ifdef QDISCORD_LIBRARY_DEBUG
-	qDebug()<<"QDiscordUser("<<this<<") constructed";
-#endif
+//#ifdef QDISCORD_LIBRARY_DEBUG
+//  qDebug()<<"QDiscordUser("<<this<<") constructed";
+//#endif
 }
 
 QDiscordUser::~QDiscordUser()
 {
-#ifdef QDISCORD_LIBRARY_DEBUG
-	qDebug()<<"QDiscordUser("<<this<<") destroyed";
-#endif
+//#ifdef QDISCORD_LIBRARY_DEBUG
+//  qDebug()<<"QDiscordUser("<<this<<") destroyed";
+//#endif
 }
 
 void QDiscordUser::update(const QJsonObject& object)
 {
-	if(object.contains("id"))
-		_id = object["id"].toString("");
-	if(object.contains("bot"))
-		_bot = object["bot"].toBool(false);
-	if(object.contains("discriminator"))
-		_discriminator = object["discriminator"].toString("");
-	if(object.contains("email"))
-		_email = object["email"].toString("");
-	if(object.contains("username"))
-		_username = object["username"].toString("");
-	if(object.contains("verified"))
-		_verified = object["verified"].toBool(false);
-	if(object.contains("avatar"))
-		_avatar = object["avatar"].toString("");
+    if (object.contains("id"))
+        _id = object["id"].toString("");
+    if (object.contains("bot"))
+        _bot = object["bot"].toBool(false);
+    if (object.contains("discriminator"))
+        _discriminator = object["discriminator"].toString("");
+    if (object.contains("email"))
+        _email = object["email"].toString("");
+    if (object.contains("username"))
+        _username = object["username"].toString("");
+    if (object.contains("verified"))
+        _verified = object["verified"].toBool(false);
+    if (object.contains("avatar"))
+        _avatar = object["avatar"].toString("");
 
-#ifdef QDISCORD_LIBRARY_DEBUG
-	qDebug()<<"QDiscordUser("<<this<<") updated";
-#endif
+//#ifdef QDISCORD_LIBRARY_DEBUG
+//  qDebug()<<"QDiscordUser("<<this<<") updated";
+//#endif
 }
 
 bool QDiscordUser::operator ==(const QDiscordUser& other) const
 {
-	return other.id() == _id;
+    return other.id() == _id;
 }
 
 bool QDiscordUser::operator !=(const QDiscordUser& other) const
 {
-	return !operator ==(other);
+    return !operator ==(other);
 }

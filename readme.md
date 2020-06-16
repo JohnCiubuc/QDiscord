@@ -1,6 +1,20 @@
 # Updated QDiscord 2020
 QDiscord is a fantastic wrapper for the discord api written in C++, but it is lacking in some functionality and the project has been orphened. This repository is the most up-to-date version of this api (that I know of as of June 2020), with additional functionality added.
 
+## Fixes
+
+* Fixed login for Discord Api v6
+
+## Added Functions
+
+* Added `QDiscordEmbed` (Accessible under `QDiscordMessage`)
+    * Provides full information of `embed` objects in messages
+
+* Added `triggerTypingIndicator` under the REST api. 
+    * Allows for 'Bot is typing..." indicator in requested channels.
+
+* Added `getGuildEmojis` under the REST api.             
+    * Allows to get custom emojis from servers
 
 # QDiscord
 

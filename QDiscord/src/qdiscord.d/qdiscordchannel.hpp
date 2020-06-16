@@ -30,99 +30,148 @@ class QDiscordGuild;
 class QDiscordChannel
 {
 public:
-	/*!
-	 * \brief Creates an instance from the provided parameters.
-	 * \param object A JSON object of a Discord channel.
-	 * \param guild A pointer to the parent guild of the channel, if any.
-	 * \note Some properties may be defaul, not accessible or `nullptr`,
-	 * depending on what type() and isPrivate() return.
-	 */
-	QDiscordChannel(const QJsonObject& object,
-			QWeakPointer<QDiscordGuild> guild =
-				QWeakPointer<QDiscordGuild>()
-			);
-	QDiscordChannel();
-	QDiscordChannel(const QDiscordChannel& other);
-	~QDiscordChannel();
-	/*!
-	 * \brief An enumerator holding all possible types of channels.
-	 *
-	 * If a type is not defined here, `ChannelType::UnknownType` will be set.\n
-	 * See https://discordapp.com/developers/docs/resources/channel#guild-channel-structure
-	 * for more information.
-	 */
-	enum class ChannelType
-	{
-		Voice, Text, UnknownType
-	};
-	///\brief Returns the channel's ID.
-	QString id() const {return _id;}
-	///\brief Returns the channel's name.
-	QString name() const {return _name;}
-	///\brief Returns the channel's position in the channel list.
-	int position() const {return _position;}
-	///\brief Returns the channel's topic.
-	QString topic() const {return _topic;}
-	/*!
-	 * \brief Returns the channel's type.
-	 *
-	 * Possible types are specified in QDiscordChannel::ChannelType.
-	 */
-	ChannelType type() const {return _type;}
-	/*!
-	 * \brief Returns whether the channel is a private or a guild channel.
-	 *
-	 * Some parameters may not be set depending on this value.
-	 */
-	bool isPrivate() const {return _isPrivate;}
-	///\brief Returns the ID of the last sent message.
-	QString lastMessageId() const {return _lastMessageId;}
-	///\brief Returns a pointer to this channel's parent guild.
-	QSharedPointer<QDiscordGuild> guild() const {return _guild;}
-	/*!
-	 * \brief Returns a pointer to this channel's recipient, if this is a
-	 * private channel.
-	 */
-	QSharedPointer<QDiscordUser> recipient() const {return _recipient;}
-	/*!
-	 * \brief Returns the channel's bitrate
-	 *
-	 * Returns -1 if the channel's type is not
-	 * DiscordChannel::ChannelType::Voice.
-	 */
-	int bitrate() const {return _bitrate;}
-	/*!
-	 * \brief Returns the channel's user limit.
-	 *
-	 * Returns -1 if the channel's type is not
-	 * QDiscordChannel::ChannelType::Voice.
-	 */
-	int userLimit() const {return _userLimit;}
-	QDateTime lastPinTimestamp() const {return _lastPinTimestamp;}
-	/*!
-	 * \brief Sets this object's parent guild.
-	 * \param guild A pointer to this object's new parent guild.
-	 */
-	void setGuild(QSharedPointer<QDiscordGuild> guild) {_guild = guild;}
-	///\brief Returns a string which allows you to mention this channel.
-	QString mention() const {return QString("<#"+_id+">");}
-	///\brief Compares two channels based on their ID.
-	bool operator ==(const QDiscordChannel& other) const;
-	///\brief Compares two channels based on their ID.
-	bool operator !=(const QDiscordChannel& other) const;
+    /*!
+     * \brief Creates an instance from the provided parameters.
+     * \param object A JSON object of a Discord channel.
+     * \param guild A pointer to the parent guild of the channel, if any.
+     * \note Some properties may be defaul, not accessible or `nullptr`,
+     * depending on what type() and isPrivate() return.
+     */
+    QDiscordChannel(const QJsonObject & object,
+                    QWeakPointer<QDiscordGuild> guild =
+                        QWeakPointer<QDiscordGuild>()
+                   );
+    QDiscordChannel();
+    QDiscordChannel(const QDiscordChannel & other);
+    ~QDiscordChannel();
+    /*!
+     * \brief An enumerator holding all possible types of channels.
+     *
+     * If a type is not defined here, `ChannelType::UnknownType` will be set.\n
+     * See https://discordapp.com/developers/docs/resources/channel#guild-channel-structure
+     * for more information.
+     */
+    enum class ChannelType
+    {
+        Text, DM, Voice, Group_DM, Category, UnknownType
+    };
+    ///\brief Returns the channel's ID.
+    QString id() const
+    {
+        return _id;
+    }
+    ///\brief Returns the channel's name.
+    QString name() const
+    {
+        return _name;
+    }
+    ///\brief Returns the channel's position in the channel list.
+    int position() const
+    {
+        return _position;
+    }
+    ///\brief Returns the channel's topic.
+    QString topic() const
+    {
+        return _topic;
+    }
+    /*!
+     * \brief Returns the channel's type.
+     *
+     * Possible types are specified in QDiscordChannel::ChannelType.
+     */
+    ChannelType type() const
+    {
+        return _type;
+    }
+    ///\brief Returns the ID of the last sent message.
+    QString lastMessageId() const
+    {
+        return _lastMessageId;
+    }
+    ///\brief Returns a pointer to this channel's parent guild.
+    QSharedPointer<QDiscordGuild> guild() const
+    {
+        return _guild;
+    }
+    /*!
+     * \brief Returns a pointer to this channel's recipient, if this is a
+     * private channel.
+     */
+    QSharedPointer<QDiscordUser> recipient() const
+    {
+        return _recipient;
+    }
+    /*!
+     * \brief Returns the channel's bitrate
+     *
+     * Returns -1 if the channel's type is not
+     * DiscordChannel::ChannelType::Voice.
+     */
+    int bitrate() const
+    {
+        return _bitrate;
+    }
+
+    QString ownerID() const
+    {
+        return _ownerId;
+    }
+
+    /*!
+     * \brief Returns whether the channel is a private or a guild channel.
+     *
+     * Some parameters may not be set depending on this value.
+     */
+    bool isPrivate() const
+    {
+        return _isPrivate;
+    }
+    /*!
+     * \brief Returns the channel's user limit.
+     *
+     * Returns -1 if the channel's type is not
+     * QDiscordChannel::ChannelType::Voice.
+     */
+    int userLimit() const
+    {
+        return _userLimit;
+    }
+    QDateTime lastPinTimestamp() const
+    {
+        return _lastPinTimestamp;
+    }
+    /*!
+     * \brief Sets this object's parent guild.
+     * \param guild A pointer to this object's new parent guild.
+     */
+    void setGuild(QSharedPointer<QDiscordGuild> guild)
+    {
+        _guild = guild;
+    }
+    ///\brief Returns a string which allows you to mention this channel.
+    QString mention() const
+    {
+        return QString("<#" + _id + ">");
+    }
+    ///\brief Compares two channels based on their ID.
+    bool operator ==(const QDiscordChannel & other) const;
+    ///\brief Compares two channels based on their ID.
+    bool operator !=(const QDiscordChannel & other) const;
 private:
-	QString _id;
-	QString _name;
-	int _position;
-	QString _topic;
-	ChannelType _type;
-	bool _isPrivate;
-	QString _lastMessageId;
-	int _bitrate;
-	int _userLimit;
-	QDateTime _lastPinTimestamp;
-	QSharedPointer<QDiscordUser> _recipient;
-	QSharedPointer<QDiscordGuild> _guild;
+    QString _id;
+    QString _name;
+    int _position;
+    QString _topic;
+    ChannelType _type;
+    bool _isPrivate;
+    QString _lastMessageId;
+    QString _ownerId;
+    int _bitrate;
+    int _userLimit;
+    QDateTime _lastPinTimestamp;
+    QSharedPointer<QDiscordUser> _recipient;
+    QSharedPointer<QDiscordGuild> _guild;
 };
 
 Q_DECLARE_METATYPE(QDiscordChannel::ChannelType)
