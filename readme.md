@@ -7,16 +7,25 @@ QDiscord is a fantastic wrapper for the discord api written in C++, but it is la
 
 ## Added Functions
 
-* Added `QDiscordEmbed` (Accessible under `QDiscordMessage`)
-    * Provides full information of `embed` objects in messages
+### Extensions to QDiscordMessage
 
-* Added `QDiscordAttachment` (Accessible under `QDiscordMessage`)
+* Added `QDiscordEmbed` 
 
-* Added `triggerTypingIndicator` under the REST api. 
-    * Allows for 'Bot is typing..." indicator in requested channels.
+* Added `QDiscordAttachment` 
 
-* Added `getGuildEmojis` under the REST api.             
-    * Allows to get custom emojis from servers
+
+### Extensions to REST Api
+
+* Added `triggerTypingIndicator` to specified `channel`
+
+* Added `getGuildMember`
+
+* Added `getGuild`
+
+* Added `getGuildEmojis` 
+
+* Added `patchGuildMember`
+    * Allows for editing member's permissions/roles/etc 
 
 # QDiscord
 
