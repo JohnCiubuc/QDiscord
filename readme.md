@@ -30,7 +30,9 @@ It was written to easily allow the creation of Discord bots.
 
 # Documentation
 
-All documentation can be found [here](http://george99g.github.io/QDiscord).
+Most documentation can be found [here](http://george99g.github.io/QDiscord).
+
+"New" documentation will be dropped in the 'added features' portion of this readme
 
 # Related projects
 
