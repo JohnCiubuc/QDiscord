@@ -1,4 +1,4 @@
-# Updated QDiscord
+# Updated QDiscord 2020
 QDiscord is a fantastic wrapper for the discord api written in C++, but it is lacking in some functionality and the project has been orphened. This repository is the most up-to-date version of this api (that I know of as of June 2020), with additional functionality added.
 
 
