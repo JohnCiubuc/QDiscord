@@ -10,6 +10,8 @@ QDiscord is a fantastic wrapper for the discord api written in C++, but it is la
 * Added `QDiscordEmbed` (Accessible under `QDiscordMessage`)
     * Provides full information of `embed` objects in messages
 
+* Added 'QDiscordAttachment' (Accessible under 'QDiscordMessage')
+
 * Added `triggerTypingIndicator` under the REST api. 
     * Allows for 'Bot is typing..." indicator in requested channels.
 

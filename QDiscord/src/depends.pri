@@ -1,6 +1,7 @@
 include(../config.pri)
 
 SOURCES += $$PWD/qdiscord.d/qdiscord.cpp \
+    $$PWD/qdiscord.d/qdiscordattachment.cpp \
     $$PWD/qdiscord.d/qdiscordrestcomponent.cpp \
     $$PWD/qdiscord.d/qdiscordutilities.cpp \
     $$PWD/qdiscord.d/qdiscordwscomponent.cpp \
@@ -30,4 +31,5 @@ DIRHEADERS += $$PWD/qdiscord.d/qdiscord.hpp \
     $$PWD/qdiscord.d/qdiscordtokentype.hpp
 
 HEADERS += $$TOPHEADERS \
-    $$DIRHEADERS
+    $$DIRHEADERS \
+    $$PWD/qdiscord.d/qdiscordattachment.hpp

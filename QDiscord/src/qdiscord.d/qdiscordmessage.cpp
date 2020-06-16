@@ -33,11 +33,11 @@ QDiscordMessage::QDiscordMessage(const QJsonObject & object,
     _tts = object["tts"].toBool(false);
     _timestamp = QDateTime::fromString(object["timestamp"].toString(""),
                                        Qt::ISODate);
-    qDebug() << this << "Message Create:";
-    qDebug() << this << object;
-    qDebug() << this << object["embeds"].toObject();
+//    qDebug() << this << "Message Create:";
+//    qDebug() << this << object;
+//    qDebug() << this << object["embeds"].toObject();
     _embed = QSharedPointer<QDiscordEmbed>( new QDiscordEmbed(object["embeds"].toArray()));
-
+    _attachment = QSharedPointer<QDiscordAttachment>( new QDiscordAttachment(object["attachments"].toArray()));
     for (QJsonValue item : object["mentions"].toArray())
     {
         if (guild())
@@ -96,6 +96,7 @@ QDiscordMessage::QDiscordMessage(const QDiscordMessage & other)
     _tts = other.tts();
     _timestamp = other.timestamp();
     _embed = other.embed();
+    _attachment = other.attachment();
     QList<QSharedPointer<QDiscordUser>> otherMentions = other.mentions();
 
     for (QSharedPointer<QDiscordUser> item : otherMentions)
