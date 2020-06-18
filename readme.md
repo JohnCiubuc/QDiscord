@@ -8,11 +8,11 @@ A basic Discord bot has been written using QDiscord to show how to setup connect
 You can read more information on the bot [Here](https://github.com/JohnCiubuc/QDiscord/tree/master/DiscordBotSample)
 ## Fixes
 
-* Fixed login for Discord Api v6
+* Fixed login for Discord API v6
 
 ## Added Functions
 
-* Added `put` to REST Api
+* Added `put` to REST API
 
 ### Extensions to QDiscordMessage
 
@@ -21,7 +21,7 @@ You can read more information on the bot [Here](https://github.com/JohnCiubuc/QD
 * Added `QDiscordAttachment` 
 
 
-### Extensions to REST Api
+### Extensions to REST API
 
 * Added `sendEmbed`
 
