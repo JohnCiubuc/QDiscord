@@ -1,5 +1,5 @@
 # Updated QDiscord 2020
-QDiscord is a fantastic wrapper for the Discord api written in C++, but it is lacking in some functionality and the project has been orphaned. This repository is the most up-to-date version of this api (that I know of as of June 2020), with additional functionality added.
+QDiscord is a fantastic wrapper for the Discord API written in C++, but it is lacking in some functionality and the project has been orphaned. This repository is the most up-to-date version of this API (that I know of as of June 2020), with additional functionality added.
 
 # Sample Bot
 
@@ -75,4 +75,4 @@ Most documentation can be found [here](http://george99g.github.io/QDiscord).
 
 # Related projects
 
-A list of Discord API libraries in other languages can be found [here](https://Discordapi.com/unofficial/libs.html).
+A list of Discord API libraries in other languages can be found [here](https://DiscordAPI.com/unofficial/libs.html).
