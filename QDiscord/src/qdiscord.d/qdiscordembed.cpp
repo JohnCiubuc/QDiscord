@@ -34,7 +34,7 @@ QDiscordEmbed::QDiscordEmbed(const QJsonArray & array)
     _provider = get_provider(object["provider"].toObject());
     _author = get_author(object["author"].toObject());
     _fields = get_fields(object["fields"].toArray());
-    qDebug() << this << "Fields size: " << _fields.size();
+//    qDebug() << this << "Fields size: " << _fields.size();
     _hasEmbed = _fields.size() > 0;
 #ifdef QDISCORD_LIBRARY_DEBUG
     qDebug()<<"QDiscordEmbed("<<this<<") constructed";

@@ -21,8 +21,8 @@
 QDiscordAttachment::QDiscordAttachment(const QJsonArray & array)
 {
     QJsonObject object = array.first().toObject();
-    qDebug () << "QDiscordAttachment:\n\n\n";
-    qDebug() << this << object;
+//    qDebug () << "QDiscordAttachment:\n\n\n";
+//    qDebug() << this << object;
     _id = object["id"].toString("");
     _filename = object["filename"].toString("");
     _size= object["size"].toInt(0);
@@ -31,12 +31,12 @@ QDiscordAttachment::QDiscordAttachment(const QJsonArray & array)
     _height = object["height"].toInt(0);
     _width = object["width"].toInt(0);
 
-    qDebug() << _id;
-    qDebug() << _filename;
-    qDebug() << _size;
-    qDebug() << _url;
-    qDebug() << _proxy_url;
-    qDebug() << _height;
+//    qDebug() << _id;
+//    qDebug() << _filename;
+//    qDebug() << _size;
+//    qDebug() << _url;
+//    qDebug() << _proxy_url;
+//    qDebug() << _height;
 
 }
 

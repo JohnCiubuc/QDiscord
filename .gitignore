@@ -47,3 +47,4 @@ QDiscord/config.pri
 
 # Linux build
 build-QDiscord-Desktop-Release/
+build-DiscordBotSample-Desktop-Release/
