@@ -5,7 +5,7 @@ QDiscord is a fantastic wrapper for the discord api written in C++, but it is la
 
 A basic discord bot has been written using QDiscord to show how to setup connections, recieve messages (and guild specific emojis!) and how to respond back to them. 
 
-You can read more information on the bot [Here]()
+You can read more information on the bot [Here](https://github.com/JohnCiubuc/QDiscord/tree/master/DiscordBotSample)
 ## Fixes
 
 * Fixed login for Discord Api v6
