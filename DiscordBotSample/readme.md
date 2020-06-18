@@ -23,4 +23,4 @@ This is a basic Discord bot showing how to use QDiscord in a barebones, but full
 
 # Command Examples
 
-Basic bot messages can be found in `discordbot.cpp`. Most new commands will be found in `QDiscordInterpreter`
+Most bot commands can be found in `DiscordBot`. Commands requiring response from the server, will have their responses found under `QDiscordInterpreter`
