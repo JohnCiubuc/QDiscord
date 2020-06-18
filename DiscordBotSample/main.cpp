@@ -7,7 +7,7 @@ int main(int argc, char *argv[])
 
     DiscordBot * Bot = new DiscordBot();
 
-    const QString botToken = "MzU3NzQ4NTcwNDQ0NzkxODEw.XcXoYA.Em8h1LAaTHbqHmYd2FccC1OGleY";
+    const QString botToken = "Insert Bot Token Here";
 
     Bot->login(botToken);
 
