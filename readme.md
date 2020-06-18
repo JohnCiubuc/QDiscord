@@ -12,6 +12,8 @@ You can read more information on the bot [Here](https://github.com/JohnCiubuc/QD
 
 ## Added Functions
 
+* Added `put` to REST Api
+
 ### Extensions to QDiscordMessage
 
 * Added `QDiscordEmbed` 
@@ -31,6 +33,10 @@ You can read more information on the bot [Here](https://github.com/JohnCiubuc/QD
 
 * Added `patchGuildMember`
     * Allows for editing member's permissions/roles/etc 
+
+* Added `getPinnedMessages`
+
+* Added `addPinnedMessage'
 
 # QDiscord
 

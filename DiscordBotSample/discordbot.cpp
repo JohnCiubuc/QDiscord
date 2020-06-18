@@ -59,4 +59,9 @@ void DiscordBot::discordMessage(QDiscordMessage message)
             _discord.rest()->sendMessage("bot is typing... boop!", message.channelId());
         });
     }
+    else if(message.content() == "get pins")
+        _discord.rest()->getPinnedMessages(message.channelId());
+    else if(message.content() == "pin this")
+        _discord.rest()->addPinnedMessage(message);
+
 }

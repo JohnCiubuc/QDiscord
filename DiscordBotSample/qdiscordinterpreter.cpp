@@ -6,7 +6,8 @@ QDiscordInterpreter::QDiscordInterpreter(QDiscord & discord, QString prefix, QOb
     connect(_discord.state(), &QDiscordStateComponent::messageCreated, this, &QDiscordInterpreter::messageReceived);
     connect(_discord.state(), &QDiscordStateComponent::guildCreated, this, &QDiscordInterpreter::guildCreated);
 
-    connect(_discord.rest(), &QDiscordRestComponent::getGuildEmojisAcquired, this, &QDiscordInterpreter::guildEmojis);
+    connect(_discord.rest(), &QDiscordRestComponent::guildEmojis, this, &QDiscordInterpreter::guildEmojis);
+    connect(_discord.rest(), &QDiscordRestComponent::pinnedMessages, this, &QDiscordInterpreter::pinnedMessages);
 
     connect(_discord.ws(), &QDiscordWsComponent::attemptingReconnect, this, &QDiscordInterpreter::attemptingReconnect);
     connect(_discord.ws(), &QDiscordWsComponent::reconnectImpossible, this, &QDiscordInterpreter::reconnectImpossible);
@@ -67,6 +68,14 @@ void QDiscordInterpreter::guildCreated(QSharedPointer<QDiscordGuild> guild)
 {
     db "Guild Created - " << guild->name();
     _discord.rest()->getGuildEmojis(guild->id());
+}
+
+void QDiscordInterpreter::pinnedMessages(QJsonArray messages)
+{
+    foreach(QJsonValue val, messages)
+    {
+        qDebug() << "Pinned Message:" << val.toObject();
+    }
 }
 
 void QDiscordInterpreter::messageReceived(QDiscordMessage message)

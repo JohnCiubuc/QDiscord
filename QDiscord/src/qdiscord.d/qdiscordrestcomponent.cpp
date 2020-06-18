@@ -841,11 +841,7 @@ void QDiscordRestComponent::getGuildEmojis(const QString &guildID)
         }
         else
         {
-            emit getGuildEmojisAcquired(
-                //QJsonDocument::fromJson(
-                reply->readAll()
-                //        ).object().value("url").toString()
-            );
+            emit guildEmojis(reply->readAll() );
         }
 
         reply->deleteLater();
@@ -927,6 +923,54 @@ void QDiscordRestComponent::patchGuildMember(const QString & guildID, const QStr
             qDebug() << this << "patchGuildMemberRoles Succeeded";
             emit patchGuildMemberSuccess();
         }
+
+        reply->deleteLater();
+    });
+}
+
+void QDiscordRestComponent::getPinnedMessages(const QString channel_id)
+{
+    if (!_loggedIn)
+        return;
+
+    get(QDiscordUtilities::endPoints.apiBase + QString("/channels/" + channel_id + "/pins"),
+        [ = ]()
+    {
+        QNetworkReply * reply = static_cast<QNetworkReply *>(sender());
+#ifdef QDISCORD_LIBRARY_DEBUG
+        qDebug() << this << "Recieved pinned Messages" << url;
+#endif
+
+        if (!reply)
+            return;
+
+        if (reply->error() != QNetworkReply::NoError)
+            qDebug() << this << "Error on recieve pinned messages";
+        else
+        {
+            emit pinnedMessages(QJsonDocument::fromJson(reply->readAll()).array());
+        }
+
+        reply->deleteLater();
+    });
+}
+
+void QDiscordRestComponent::addPinnedMessage(const QDiscordMessage message)
+{
+    if (!_loggedIn)
+        return;
+
+    put(QJsonArray(), QUrl(QString(
+                               QDiscordUtilities::endPoints.apiBase + QString("/channels/" + message.channelId()+ "/pins/" + message.id())
+                           )),
+        [ = ]()
+    {
+        QNetworkReply * reply = static_cast<QNetworkReply *>(sender());
+
+        if (!reply)
+            return;
+
+        qDebug() << "add pinned:" << reply->readAll();
 
         reply->deleteLater();
     });
@@ -1057,5 +1101,26 @@ void QDiscordRestComponent::get(const QUrl & url,
     connect(reply, &QNetworkReply::finished, this, function);
 #ifdef QDISCORD_LIBRARY_DEBUG
     qDebug() << this << "GET to" << url;
+#endif
+}
+template<class Functor>
+void QDiscordRestComponent::put(const QJsonArray & array,
+                                const QUrl & url,
+                                Functor function)
+{
+    QJsonDocument document;
+    document.setArray(array);
+    QNetworkRequest request(url);
+
+    if (_authentication != "")
+        request.setRawHeader("Authorization", _authentication.toUtf8());
+
+    request.setRawHeader("User-Agent", QDiscordUtilities::userAgent().toUtf8());
+    request.setRawHeader("content-type", "application/json");
+    QNetworkReply * reply =
+        _manager.put(request, document.toJson(QJsonDocument::Compact));
+    connect(reply, &QNetworkReply::finished, this, function);
+#ifdef QDISCORD_LIBRARY_DEBUG
+    qDebug() << this << "posted:" << array << "to" << url;
 #endif
 }

@@ -154,6 +154,9 @@ public:
 
     void patchGuildMember(const QString & guildID, const QString & memberID, const QJsonObject & object);
     void patchGuildMember(const QString & guildID, const QString & memberID, const QJsonArray & array);
+
+    void getPinnedMessages(const QString channel_id);
+    void addPinnedMessage(const QDiscordMessage message);
 signals:
     /*!
      * \brief Emitted when a WebSocket endpoint has successfully been acquired.
@@ -202,8 +205,9 @@ signals:
     void getGuildMemberAcquired(QByteArray reply);
     void getGuildAcquired(QByteArray reply);
     void getGuildMemberFailed(QNetworkReply::NetworkError error);
-    void getGuildEmojisAcquired(QByteArray reply);
+    void guildEmojis(QByteArray reply);
     void patchGuildMemberSuccess();
+    void pinnedMessages(QJsonArray pinnedMessages);
     /*!
      * \brief Emitted when deleting a message has failed.
      * \param error A QNetworkReply::NetworkError enum containing more
@@ -240,6 +244,8 @@ private:
     void post(const QJsonArray & array, const QUrl & url, Functor function);
     template<class Functor>
     void get(const QUrl & url, Functor function);
+    template<class Functor>
+    void put(const QJsonArray & array, const QUrl & url, Functor function);
     QSharedPointer<QDiscordUser> _self;
     QString _authentication;
     QNetworkAccessManager _manager;
