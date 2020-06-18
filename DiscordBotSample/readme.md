@@ -11,4 +11,4 @@ This is a basic Discord bot showing how to use QDiscord in a barebones, but full
 1. Compile [QDiscord](https://github.com/JohnCiubuc/QDiscord/tree/master/QDiscord)
 2. Edit DiscordBotSample.pro and do the following changes:
     * Under comment `QDiscord Lib`, change directories to where [QDiscord](https://github.com/JohnCiubuc/QDiscord/tree/master/QDiscord) compiled library is located
-    * Under comment `QDiscord Includes', change directories to [QDiscord](https://github.com/JohnCiubuc/QDiscord/tree/master/QDiscord)'s source directory
+    * Under comment `QDiscord Includes`, change directories to [QDiscord](https://github.com/JohnCiubuc/QDiscord/tree/master/QDiscord)'s source directory
