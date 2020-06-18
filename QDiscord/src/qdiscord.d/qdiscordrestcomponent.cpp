@@ -111,7 +111,7 @@ void QDiscordRestComponent::login(const QString & token,
 
         if (reply->error() != QNetworkReply::NoError)
         {
-            qDebug() << "ERROROR::" << reply->errorString();
+            qDebug() << "ERROR::" << reply->errorString();
             _authentication = "";
             _loggedIn = false;
             emit loginFailed(reply->error());
