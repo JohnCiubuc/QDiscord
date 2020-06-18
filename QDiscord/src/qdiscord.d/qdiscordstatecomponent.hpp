@@ -37,156 +37,164 @@
  */
 class QDiscordStateComponent : public QObject
 {
-	Q_OBJECT
-	friend class QDiscord;
+    Q_OBJECT
+    friend class QDiscord;
 public:
-	explicit QDiscordStateComponent(QObject* parent = 0);
-	~QDiscordStateComponent();
-	/*!
-	 * \brief Returns a pointer to the guild that has the provided ID.
-	 * Returns `nullptr` if nothing was found.
-	 */
-	QSharedPointer<QDiscordGuild> guild(const QString& id) {
-		return _guilds.value(id, QSharedPointer<QDiscordGuild>());
-	}
-	///\brief Returns a map of pointers to all guilds and their IDs.
-	QMap<QString, QSharedPointer<QDiscordGuild>> guilds() {return _guilds;}
-	/*!
-	 * \brief Returns a pointer to the channel that has the provided ID.
-	 * Returns `nullptr` if nothing was found.
-	 */
-	QSharedPointer<QDiscordChannel> channel(const QString& id);
-	///\brief Returns a map of pointers to all private channels and their IDs.
-	QMap<QString, QSharedPointer<QDiscordChannel>> privateChannels() {
-		return _privateChannels;
-	}
-	///\brief Returns a pointer to this client's information.
-	QSharedPointer<QDiscordUser> self() {return _self;}
+    explicit QDiscordStateComponent(QObject* parent = 0);
+    ~QDiscordStateComponent();
+    /*!
+     * \brief Returns a pointer to the guild that has the provided ID.
+     * Returns `nullptr` if nothing was found.
+     */
+    QSharedPointer<QDiscordGuild> guild(const QString& id)
+    {
+        return _guilds.value(id, QSharedPointer<QDiscordGuild>());
+    }
+    ///\brief Returns a map of pointers to all guilds and their IDs.
+    QMap<QString, QSharedPointer<QDiscordGuild>> guilds()
+    {
+        return _guilds;
+    }
+    /*!
+     * \brief Returns a pointer to the channel that has the provided ID.
+     * Returns `nullptr` if nothing was found.
+     */
+    QSharedPointer<QDiscordChannel> channel(const QString& id);
+    ///\brief Returns a map of pointers to all private channels and their IDs.
+    QMap<QString, QSharedPointer<QDiscordChannel>> privateChannels()
+    {
+        return _privateChannels;
+    }
+    ///\brief Returns a pointer to this client's information.
+    QSharedPointer<QDiscordUser> self()
+    {
+        return _self;
+    }
 signals:
-	/*!
-	 * \brief Emitted when a guild has been created.
-	 *
-	 * The guild may be unavailable as this signal is emitted when any guild is
-	 * created.\n
-	 * Explicit checks will be required if you listen to this signal.
-	 * \param guild A pointer to the guild that has been created.
-	 */
-	void guildCreated(QSharedPointer<QDiscordGuild> guild);
-	/*!
-	 * \brief Emitted when a guild has become available.
-	 *
-	 * It should be safe to assume that all guilds provided by this signal will
-	 * be available.
-	 * \param guild A pointer to the guild that has become available.
-	 */
-	void guildAvailable(QSharedPointer<QDiscordGuild> guild);
-	/*!
-	 * \brief Emitted when a guild has been deleted.
-	 * \param guild An object containing information about the guild that was
-	 * deleted.
-	 */
-	void guildDeleted(QDiscordGuild guild);
-	/*!
-	 * \brief Emitted when a member has been added to a guild.
-	 * \param member A pointer to the guild member that has been added.
-	 */
-	void guildMemberAdded(QSharedPointer<QDiscordMember> member);
-	/*!
-	 * \brief Emitted when a member has been removed from a guild.
-	 * \param member An object containing information ab out the member that was
-	 * deleted.
-	 */
-	void guildMemberRemoved(QDiscordMember member);
-	/*!
-	 * \brief Emitted when a member in a guild has received an update.
-	 * \param member A pointer to the guild member that has been updated.
-	 */
-	void guildMemberUpdated(QSharedPointer<QDiscordMember> member);
-	/*!
-	 * \brief Emitted when information about the current client has been
-	 * collected.
-	 *
-	 * This usually gets emitted whenever the READY event gets processed.
-	 * \param self An object of this client's user.
-	 */
-	void selfCreated(QSharedPointer<QDiscordUser> self);
-	/*!
-	 * \brief Emitted when a channel has been created.
-	 * \param channel A pointer to the channel that was created.
-	 */
-	void channelCreated(QSharedPointer<QDiscordChannel> channel);
-	/*!
-	 * \brief Emitted when a channel has been deleted.
-	 * \param channel An object containing information about the channel that
-	 * was deleted.
-	 */
-	void channelDeleted(QDiscordChannel channel);
-	/*!
-	 * \brief Emitted when a channel has updated.
-	 * \param channel A pointer to the channel that was updated.
-	 */
-	void channelUpdated(QSharedPointer<QDiscordChannel> channel);
-	/*!
-	 * \brief Emitted when a private channel is created.
-	 * \param channel A pointer to the private channel that was created.
-	 */
-	void privateChannelCreated(QSharedPointer<QDiscordChannel> channel);
-	/*!
-	 * \brief Emitted when a private channel has been deleted.
-	 * \param channel A pointer to the pirvate channel that was deleted.
-	 */
-	void privateChannelDeleted(QDiscordChannel channel);
-	/*!
-	 * \brief Emitted when a private channel has been updated.
-	 * \param channel A pointer to the channel that was updated.
-	 */
-	void privateChannelUpdated(QSharedPointer<QDiscordChannel> channel);
-	/*!
-	 * \brief Emitted when a message has been created.
-	 * \param message An object containing information about the sent message.
-	 */
-	void messageCreated(QDiscordMessage message);
-        void messageCreatedBare(QString channel, QString message, QString authorID);
-	/*!
-	 * \brief Emitted when a message has been created.
-	 * \param message An object containing information about the deleted
-	 * message. Usually, the only valid information contained is the ID.
-	 */
-	void messageDeleted(QDiscordMessage message);
-	/*!
-	 * \brief Emitted when a message has been updated.
-	 * \param message An object containing information about the new message.
-	 * \param editedTimestamp The timestamp when the message was edited.
-	 */
-	void messageUpdated(QDiscordMessage message, QDateTime editedTimestamp);
+    /*!
+     * \brief Emitted when a guild has been created.
+     *
+     * The guild may be unavailable as this signal is emitted when any guild is
+     * created.\n
+     * Explicit checks will be required if you listen to this signal.
+     * \param guild A pointer to the guild that has been created.
+     */
+    void guildCreated(QSharedPointer<QDiscordGuild> guild);
+    /*!
+     * \brief Emitted when a guild has become available.
+     *
+     * It should be safe to assume that all guilds provided by this signal will
+     * be available.
+     * \param guild A pointer to the guild that has become available.
+     */
+    void guildAvailable(QSharedPointer<QDiscordGuild> guild);
+    /*!
+     * \brief Emitted when a guild has been deleted.
+     * \param guild An object containing information about the guild that was
+     * deleted.
+     */
+    void guildDeleted(QDiscordGuild guild);
+    /*!
+     * \brief Emitted when a member has been added to a guild.
+     * \param member A pointer to the guild member that has been added.
+     */
+    void guildMemberAdded(QSharedPointer<QDiscordMember> member);
+    /*!
+     * \brief Emitted when a member has been removed from a guild.
+     * \param member An object containing information ab out the member that was
+     * deleted.
+     */
+    void guildMemberRemoved(QDiscordMember member);
+    /*!
+     * \brief Emitted when a member in a guild has received an update.
+     * \param member A pointer to the guild member that has been updated.
+     */
+    void guildMemberUpdated(QSharedPointer<QDiscordMember> member);
+    /*!
+     * \brief Emitted when information about the current client has been
+     * collected.
+     *
+     * This usually gets emitted whenever the READY event gets processed.
+     * \param self An object of this client's user.
+     */
+    void selfCreated(QSharedPointer<QDiscordUser> self);
+    /*!
+     * \brief Emitted when a channel has been created.
+     * \param channel A pointer to the channel that was created.
+     */
+    void channelCreated(QSharedPointer<QDiscordChannel> channel);
+    /*!
+     * \brief Emitted when a channel has been deleted.
+     * \param channel An object containing information about the channel that
+     * was deleted.
+     */
+    void channelDeleted(QDiscordChannel channel);
+    /*!
+     * \brief Emitted when a channel has updated.
+     * \param channel A pointer to the channel that was updated.
+     */
+    void channelUpdated(QSharedPointer<QDiscordChannel> channel);
+    /*!
+     * \brief Emitted when a private channel is created.
+     * \param channel A pointer to the private channel that was created.
+     */
+    void privateChannelCreated(QSharedPointer<QDiscordChannel> channel);
+    /*!
+     * \brief Emitted when a private channel has been deleted.
+     * \param channel A pointer to the pirvate channel that was deleted.
+     */
+    void privateChannelDeleted(QDiscordChannel channel);
+    /*!
+     * \brief Emitted when a private channel has been updated.
+     * \param channel A pointer to the channel that was updated.
+     */
+    void privateChannelUpdated(QSharedPointer<QDiscordChannel> channel);
+    /*!
+     * \brief Emitted when a message has been created.
+     * \param message An object containing information about the sent message.
+     */
+    void messageCreated(QDiscordMessage message);
+    void messageCreatedBare(QString channel, QString message, QString authorID);
+    /*!
+     * \brief Emitted when a message has been created.
+     * \param message An object containing information about the deleted
+     * message. Usually, the only valid information contained is the ID.
+     */
+    void messageDeleted(QDiscordMessage message);
+    /*!
+     * \brief Emitted when a message has been updated.
+     * \param message An object containing information about the new message.
+     * \param editedTimestamp The timestamp when the message was edited.
+     */
+    void messageUpdated(QDiscordMessage message, QDateTime editedTimestamp);
 private:
-	void clear();
-	void readyReceived(const QJsonObject& object);
-	void guildCreateReceived(const QJsonObject& object);
-	void guildDeleteReceived(const QJsonObject& object);
-	void guildBanAddReceived(const QJsonObject& object);
-	void guildBanRemoveReceived(const QJsonObject& object);
-	void guildIntegrationsUpdateRecevied(const QJsonObject& object);
-	void guildMemberAddReceived(const QJsonObject& object);
-	void guildMemberRemoveReceived(const QJsonObject& object);
-	void guildMemberUpdateReceived(const QJsonObject& object);
-	void guildRoleCreateReceived(const QJsonObject& object);
-	void guildRoleDeleteReceived(const QJsonObject& object);
-	void guildRoleUpdateReceived(const QJsonObject& object);
-	void guildUpdateReceived(const QJsonObject& object);
-	void messageCreateReceived(const QJsonObject& object);
-	void messageDeleteReceived(const QJsonObject& object);
-	void messageUpdateReceived(const QJsonObject& object);
-	void presenceUpdateReceived(const QJsonObject& object);
-	void typingStartReceived(const QJsonObject& object);
-	void userSettingsUpdateReceived(const QJsonObject& object);
-	void voiceStateUpdateReceived(const QJsonObject& object);
-	void channelCreateReceived(const QJsonObject& object);
-	void channelDeleteReceived(const QJsonObject& object);
-	void channelUpdateReceived(const QJsonObject& object);
-	QMap<QString, QSharedPointer<QDiscordGuild>> _guilds;
-	QMap<QString, QSharedPointer<QDiscordChannel>> _privateChannels;
-	QSharedPointer<QDiscordUser> _self;
+    void clear();
+    void readyReceived(const QJsonObject& object);
+    void guildCreateReceived(const QJsonObject& object);
+    void guildDeleteReceived(const QJsonObject& object);
+    void guildBanAddReceived(const QJsonObject& object);
+    void guildBanRemoveReceived(const QJsonObject& object);
+    void guildIntegrationsUpdateRecevied(const QJsonObject& object);
+    void guildMemberAddReceived(const QJsonObject& object);
+    void guildMemberRemoveReceived(const QJsonObject& object);
+    void guildMemberUpdateReceived(const QJsonObject& object);
+    void guildRoleCreateReceived(const QJsonObject& object);
+    void guildRoleDeleteReceived(const QJsonObject& object);
+    void guildRoleUpdateReceived(const QJsonObject& object);
+    void guildUpdateReceived(const QJsonObject& object);
+    void messageCreateReceived(const QJsonObject& object);
+    void messageDeleteReceived(const QJsonObject& object);
+    void messageUpdateReceived(const QJsonObject& object);
+    void presenceUpdateReceived(const QJsonObject& object);
+    void typingStartReceived(const QJsonObject& object);
+    void userSettingsUpdateReceived(const QJsonObject& object);
+    void voiceStateUpdateReceived(const QJsonObject& object);
+    void channelCreateReceived(const QJsonObject& object);
+    void channelDeleteReceived(const QJsonObject& object);
+    void channelUpdateReceived(const QJsonObject& object);
+    QMap<QString, QSharedPointer<QDiscordGuild>> _guilds;
+    QMap<QString, QSharedPointer<QDiscordChannel>> _privateChannels;
+    QSharedPointer<QDiscordUser> _self;
 };
 
 #endif // QDISCORDSTATECOMPONENT_HPP

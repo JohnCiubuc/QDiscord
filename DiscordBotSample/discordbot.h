@@ -23,6 +23,9 @@ private:
     QDiscord _discord;
     QDiscordInterpreter _interpreter;
     QString token;
+
+    // For testing and examples
+    QDiscordMessage testMessage;
 };
 
 #endif // DISCORDBOT_H

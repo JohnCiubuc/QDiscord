@@ -29,6 +29,7 @@ private slots:
     void guildEmojis(QByteArray emojiJson);
     void guildCreated(QSharedPointer<QDiscordGuild> guild);
     void pinnedMessages(QJsonArray messages);
+    void reactions(QDiscordMessage message, QJsonArray usersWhoReacted);
 
 private:
     void messageReceived(QDiscordMessage message);

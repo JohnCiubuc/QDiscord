@@ -144,8 +144,6 @@ public:
     ///\brief Sets the user belonging to this client.
     void setSelf(QSharedPointer<QDiscordUser> self);
 
-    //void getGuildMember(const QString & guildID, const QString & memberID);
-
     void getGuildMember(const QString & guildID, const QString & memberID);
     void getGuild(const QString & guildID);
 
@@ -157,6 +155,13 @@ public:
 
     void getPinnedMessages(const QString channel_id);
     void addPinnedMessage(const QDiscordMessage message);
+
+    void createReaction(const QDiscordMessage message, const QUrl emoji);
+    void deleteReaction(const QDiscordMessage message, const QUrl emoji);
+    void deleteUserReaction(const QDiscordMessage message, const QString userId, const QUrl emoji);
+    void getReactions(const QDiscordMessage message, const QUrl emoji);
+    void deleteAllReactions(const QDiscordMessage message);
+    void deleteAllReactionsForEmoji(const QDiscordMessage message, const QUrl emoji);
 signals:
     /*!
      * \brief Emitted when a WebSocket endpoint has successfully been acquired.
@@ -208,6 +213,7 @@ signals:
     void guildEmojis(QByteArray reply);
     void patchGuildMemberSuccess();
     void pinnedMessages(QJsonArray pinnedMessages);
+    void reactions(QDiscordMessage message, QJsonArray users);
     /*!
      * \brief Emitted when deleting a message has failed.
      * \param error A QNetworkReply::NetworkError enum containing more

@@ -975,6 +975,123 @@ void QDiscordRestComponent::addPinnedMessage(const QDiscordMessage message)
         reply->deleteLater();
     });
 }
+
+void QDiscordRestComponent::createReaction(const QDiscordMessage message, const QUrl emoji)
+{
+    if (!_loggedIn)
+        return;
+
+    put(QJsonArray(), QUrl(QString(
+                               QDiscordUtilities::endPoints.apiBase + QString("/channels/" + message.channelId()+ "/messages/" + message.id() +"/reactions/"+ emoji.toEncoded() + "/@me")
+                           )),
+        [ = ]()
+    {
+        QNetworkReply * reply = static_cast<QNetworkReply *>(sender());
+
+        if (!reply)
+            return;
+        reply->deleteLater();
+    });
+}
+
+void QDiscordRestComponent::deleteReaction(const QDiscordMessage message, const QUrl emoji)
+{
+    if (!_loggedIn)
+        return;
+
+    deleteResource(QUrl(QString(
+                            QDiscordUtilities::endPoints.apiBase + QString("/channels/" + message.channelId()+ "/messages/" + message.id() +"/reactions/"+ emoji.toEncoded() + "/@me")
+                        )),
+                   [ = ]()
+    {
+        QNetworkReply * reply = static_cast<QNetworkReply *>(sender());
+
+        if (!reply)
+            return;
+        reply->deleteLater();
+    });
+}
+
+void QDiscordRestComponent::deleteUserReaction(const QDiscordMessage message, const QString userId, const QUrl emoji)
+{
+    if (!_loggedIn)
+        return;
+
+    deleteResource(QUrl(QString(
+                            QDiscordUtilities::endPoints.apiBase + QString("/channels/" + message.channelId()+ "/messages/" + message.id() +"/reactions/"+ emoji.toEncoded() + "/" + userId)
+                        )),
+                   [ = ]()
+    {
+        QNetworkReply * reply = static_cast<QNetworkReply *>(sender());
+
+        if (!reply)
+            return;
+        reply->deleteLater();
+    });
+}
+
+void QDiscordRestComponent::getReactions(const QDiscordMessage message, const QUrl emoji)
+{
+    if (!_loggedIn)
+        return;
+
+    get(QDiscordUtilities::endPoints.apiBase + QString("/channels/" + message.channelId() + "/messages/"+message.id()+"/reactions/"+emoji.toEncoded()),
+        [ = ]()
+    {
+        QNetworkReply * reply = static_cast<QNetworkReply *>(sender());
+#ifdef QDISCORD_LIBRARY_DEBUG
+        qDebug() << this << "Recieved pinned Messages" << url;
+#endif
+
+        if (!reply)
+            return;
+
+        if (reply->error() != QNetworkReply::NoError)
+            qDebug() << this << "Error on recieve reaction messages";
+        else
+        {
+            emit reactions(message, QJsonDocument::fromJson(reply->readAll()).array());
+        }
+
+        reply->deleteLater();
+    });
+}
+
+void QDiscordRestComponent::deleteAllReactions(const QDiscordMessage message)
+{
+    if (!_loggedIn)
+        return;
+    qDebug() << "Deleter:" <<QString(QDiscordUtilities::endPoints.apiBase + QString("/channels/" + message.channelId()+ "/messages/" + message.id() +"/reactions"));
+    deleteResource(QUrl(QString(
+                            QDiscordUtilities::endPoints.apiBase + QString("/channels/" + message.channelId()+ "/messages/" + message.id() +"/reactions")
+                        )),
+                   [ = ]()
+    {
+        QNetworkReply * reply = static_cast<QNetworkReply *>(sender());
+
+        if (!reply)
+            return;
+        reply->deleteLater();
+    });
+}
+
+void QDiscordRestComponent::deleteAllReactionsForEmoji(const QDiscordMessage message, const QUrl emoji)
+{
+    if (!_loggedIn)
+        return;
+
+    deleteResource(QUrl(QString(
+                            QDiscordUtilities::endPoints.apiBase + QString("/channels/" + message.channelId()+ "/messages/" + message.id() +"/reactions/"+ emoji.toEncoded() )
+                        )),
+                   [ = ]()
+    {
+        QNetworkReply * reply = static_cast<QNetworkReply *>(sender());
+
+        if (!reply)
+            return;
+        reply->deleteLater();
+    });
+}
 template<class Functor>
 void QDiscordRestComponent::deleteResource(const QUrl & url,
         Functor function)

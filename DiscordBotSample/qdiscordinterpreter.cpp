@@ -8,6 +8,7 @@ QDiscordInterpreter::QDiscordInterpreter(QDiscord & discord, QString prefix, QOb
 
     connect(_discord.rest(), &QDiscordRestComponent::guildEmojis, this, &QDiscordInterpreter::guildEmojis);
     connect(_discord.rest(), &QDiscordRestComponent::pinnedMessages, this, &QDiscordInterpreter::pinnedMessages);
+    connect(_discord.rest(), &QDiscordRestComponent::reactions, this, &QDiscordInterpreter::reactions);
 
     connect(_discord.ws(), &QDiscordWsComponent::attemptingReconnect, this, &QDiscordInterpreter::attemptingReconnect);
     connect(_discord.ws(), &QDiscordWsComponent::reconnectImpossible, this, &QDiscordInterpreter::reconnectImpossible);
@@ -75,6 +76,16 @@ void QDiscordInterpreter::pinnedMessages(QJsonArray messages)
     foreach(QJsonValue val, messages)
     {
         qDebug() << "Pinned Message:" << val.toObject();
+    }
+}
+
+void QDiscordInterpreter::reactions(QDiscordMessage message, QJsonArray usersWhoReacted)
+{
+    foreach(QJsonValue val, usersWhoReacted)
+    {
+
+        _discord.rest()->sendMessage(QJsonDocument(val.toObject()).toJson(), message.channelId());
+        qDebug() << "Users who reacted:" << val.toObject();
     }
 }
 
