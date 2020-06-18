@@ -25,19 +25,20 @@ qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
-#QDiscord Libs
+#QDiscord Lib
 win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../build-QDiscord-Desktop-Release/src/release/ -lQDiscord
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../build-QDiscord-Desktop-Release/src/debug/ -lQDiscord
 else:unix: LIBS += -L$$PWD/../build-QDiscord-Desktop-Release/src/ -lQDiscord
-
-INCLUDEPATH += $$PWD/../QDiscord/src/
-DEPENDPATH += $$PWD/../QDiscord/src/
-
 win32-g++:CONFIG(release, debug|release): PRE_TARGETDEPS += $$PWD/../build-QDiscord-Desktop-Release/src/release/libQDiscord.a
 else:win32-g++:CONFIG(debug, debug|release): PRE_TARGETDEPS += $$PWD/../build-QDiscord-Desktop-Release/src/debug/libQDiscord.a
 else:win32:!win32-g++:CONFIG(release, debug|release): PRE_TARGETDEPS += $$PWD/../build-QDiscord-Desktop-Release/src/release/QDiscord.lib
 else:win32:!win32-g++:CONFIG(debug, debug|release): PRE_TARGETDEPS += $$PWD/../build-QDiscord-Desktop-Release/src/debug/QDiscord.lib
 else:unix: PRE_TARGETDEPS += $$PWD/../build-QDiscord-Desktop-Release/src/libQDiscord.a
+
+#QDiscord Includes
+INCLUDEPATH += $$PWD/../QDiscord/src/
+DEPENDPATH += $$PWD/../QDiscord/src/
+
 
 HEADERS += \
     discordbot.h \
